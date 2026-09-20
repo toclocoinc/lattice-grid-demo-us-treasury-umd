@@ -1,0 +1,38 @@
+{
+  "fetchedAt": "2026-09-19T19:25:03.642Z",
+  "fetchedAtMs": 1789845903643,
+  "seconds": 2.1,
+  "debt": 8395,
+  "rates": 1339,
+  "debtFrom": "1993-04-01",
+  "debtTo": "2026-09-17",
+  "ratesFrom": "2001-01-31",
+  "ratesTo": "2026-08-31",
+  "source": "US Treasury Fiscal Data",
+  "sourceUrl": "https://fiscaldata.treasury.gov/datasets/",
+  "apiUrl": "https://api.fiscaldata.treasury.gov/services/api/fiscal_service",
+  "licence": "Public data published by the US Treasury",
+  "columns": {
+    "debt": [
+      "id",
+      "date",
+      "debt",
+      "heldPublic",
+      "changePct",
+      "direction"
+    ],
+    "rates": [
+      "id",
+      "date",
+      "security",
+      "rate"
+    ]
+  },
+  "securities": [
+    "Treasury Bills",
+    "Treasury Bonds",
+    "Treasury Notes",
+    "Treasury Inflation-Protected Securities (TIPS)",
+    "Treasury Floating Rate Notes (FRN)"
+  ]
+}
