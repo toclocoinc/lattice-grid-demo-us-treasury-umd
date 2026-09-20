@@ -293,8 +293,7 @@
         statusBar: true,
         find: true,
         grandTotalRow: 'bottom',
-        toolPanel: { side: 'right', panels: ['filters', 'columns', 'formatting'] },
-        title,
+          title,
       },
       extra || {},
     );
