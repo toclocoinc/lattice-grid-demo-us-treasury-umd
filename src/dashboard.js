@@ -627,9 +627,9 @@
       tiles: [
         {
           id: 'debtNow',
-          label: 'Debt, latest',
+          label: 'Debt, latest (USD)',
           aggregation: 'custom',
-          format: { type: 'currency', currency: 'USD', decimals: 0 },
+          format: { type: 'compact', decimals: 2 },
           compute: (rows) => {
             const latest = latestRow(rows);
             return latest ? latest.debt : null;
@@ -637,9 +637,9 @@
         },
         {
           id: 'change30',
-          label: 'Change, 30 days',
+          label: 'Change, 30 days (USD)',
           aggregation: 'custom',
-          format: { type: 'currency', currency: 'USD', decimals: 0 },
+          format: { type: 'compact', decimals: 2 },
           compute: (rows) => {
             const latest = latestRow(rows);
             if (!latest) return null;
@@ -649,9 +649,9 @@
         },
         {
           id: 'change365',
-          label: 'Change, 1 year',
+          label: 'Change, 1 year (USD)',
           aggregation: 'custom',
-          format: { type: 'currency', currency: 'USD', decimals: 0 },
+          format: { type: 'compact', decimals: 2 },
           compute: (rows) => {
             const latest = latestRow(rows);
             if (!latest) return null;
