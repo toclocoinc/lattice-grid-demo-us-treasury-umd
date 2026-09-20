@@ -572,7 +572,9 @@
         interval: (v, g) => g.statistics.interval('debt'),
         footer: (v, g) => {
           const latest = latestRow(plainRows(g));
-          return latest ? `Latest reading, ${latest.date}. Band is the 95% confidence interval of the daily series in view.` : '';
+          if (!latest) return '';
+          return `Latest reading, ${latest.date}. The change is against a year ago; the band is the `
+            + '95% confidence interval of the daily series in view.';
         },
       }),
       createStat({
@@ -592,6 +594,7 @@
           return before ? before.heldPublic : null;
         },
         goodWhen: 'down',
+        footer: 'The change is against a year ago.',
       }),
       createStat({
         grid: ratesGrid,
@@ -599,9 +602,23 @@
         title: 'Treasury bill rate',
         value: (g) => latestBillRate(g),
         format: (v) => (Number.isFinite(v) ? `${Number(v).toFixed(3)}%` : '\u2014'),
-        baseline: (g) => billRateBefore(g, 365),
-        goodWhen: 'down',
-        footer: 'Average interest rate on outstanding Treasury bills, latest month end.',
+        /*
+         * No baseline, deliberately. A tile's change indicator is always a
+         * relative one -- it divides the difference by the figure it is
+         * comparing with -- and "11.6% lower" is the wrong way to read a
+         * change in an interest rate, which moves in percentage points. The
+         * stat block offers no way to render the difference any other way, so
+         * the points are said below the figure instead and the relative
+         * indicator is left off.
+         */
+        footer: (v, g) => {
+          const tail = 'Average interest rate on outstanding Treasury bills, latest month end.';
+          const before = billRateBefore(g, 365);
+          if (!Number.isFinite(Number(v)) || !Number.isFinite(Number(before))) return tail;
+          const points = Number(v) - Number(before);
+          const sign = points > 0 ? '+' : (points < 0 ? '\u2212' : '');
+          return `${sign}${Math.abs(points).toFixed(2)} pts vs a year ago. ${tail}`;
+        },
       }),
     );
 
